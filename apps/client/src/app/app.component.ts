@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NxWelcomeComponent } from './nx-welcome.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -11,4 +12,14 @@ import { NxWelcomeComponent } from './nx-welcome.component';
 })
 export class AppComponent {
   title = 'client';
+
+  constructor() {
+    inject(HttpClient)
+      .get(`http://localhost:3000/api`, {
+        observe: 'body',
+        responseType: 'text',
+        reportProgress: true,
+      })
+      .subscribe(console.log);
+  }
 }
